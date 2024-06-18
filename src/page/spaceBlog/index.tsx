@@ -14,7 +14,7 @@ const SpaceBlog = () => {
   const [limit, setLimit] = useState<number>(10);
   const { ref, inView } = useInView({ threshold: 0.4 });
 
-  const { data, isError, isLoading, refetch, isFetching } = useArticle(limit);
+  const { data, isError, isLoading, refetch } = useArticle(limit);
   const [articleArr, setArticleArr] = useState<ArticleResult[]>();
   const [input, setInput] = useState<string>("");
 
@@ -78,7 +78,7 @@ const SpaceBlog = () => {
               isLoading={isLoading}
             />
             <div ref={ref} />
-            {isFetching && <CircularProgress color='secondary' />}
+            <CircularProgress color='secondary' />
           </>
         )}
         {articleArr?.length === 0 ? (
