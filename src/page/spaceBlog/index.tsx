@@ -8,11 +8,22 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
+import { useInView } from "react-intersection-observer";
 
 const SpaceBlog = () => {
-  const { data, isError, isLoading } = useArticle(10);
+  const [limit, setLimit] = useState<number>(10);
+  const { ref, inView } = useInView({ threshold: 0.4 });
+
+  const { data, isError, isLoading, refetch, isFetching } = useArticle(limit);
   const [articleArr, setArticleArr] = useState<ArticleResult[]>();
   const [input, setInput] = useState<string>("");
+
+  useEffect(() => {
+    if (inView) {
+      setLimit((limit) => limit + 10);
+      refetch();
+    }
+  }, [inView]);
 
   useEffect(() => {
     if (data && !isLoading && !isError) {
@@ -50,7 +61,13 @@ const SpaceBlog = () => {
         </AppBar>
       </Box>
 
-      <Box display='flex' flexDirection='column' gap={4} mt={10}>
+      <Box
+        display='flex'
+        flexDirection='column'
+        gap={4}
+        mt={10}
+        justifyContent='center'
+        alignItems='center'>
         {isLoading ? (
           <CircularProgress color='secondary' />
         ) : (
@@ -60,6 +77,8 @@ const SpaceBlog = () => {
               isError={isError}
               isLoading={isLoading}
             />
+            <div ref={ref} />
+            {isFetching && <CircularProgress color='secondary' />}
           </>
         )}
         {articleArr?.length === 0 ? (
