@@ -10,7 +10,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 
 const SpaceBlog = () => {
-  const { data, isError, isLoading } = useArticle();
+  const { data, isError, isLoading } = useArticle(10);
   const [articleArr, setArticleArr] = useState<ArticleResult[]>();
   const [input, setInput] = useState<string>("");
 
