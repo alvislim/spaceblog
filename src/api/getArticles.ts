@@ -23,7 +23,7 @@ interface Article {
   count: number;
   next: string;
   previous?: string;
-  results: ArticleResult;
+  results: ArticleResult[];
 }
 
 const fetchArticles = (): Promise<Article> => {
