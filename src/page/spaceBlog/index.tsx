@@ -9,6 +9,8 @@ import Typography from "@mui/material/Typography";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { useInView } from "react-intersection-observer";
+import { DateRangePicker } from "rsuite";
+import "rsuite/dist/rsuite-no-reset.min.css";
 
 const SpaceBlog = () => {
   const [limit, setLimit] = useState<number>(10);
@@ -57,6 +59,19 @@ const SpaceBlog = () => {
         <AppBar sx={{ backgroundColor: "#fff" }}>
           <Toolbar>
             <TextInput onChange={onInputChange} width={150} />
+            <DateRangePicker
+              value={[
+                new Date("2025-02-01 00:00:00"),
+                new Date("2025-03-01 23:59:59"),
+              ]}
+              //   onChange={setValue}
+              showMeridian
+              format='yyyy-MM-dd HH:mm:ss'
+              defaultCalendarValue={[
+                new Date("2025-02-01 00:00:00"),
+                new Date("2025-03-01 23:59:59"),
+              ]}
+            />
           </Toolbar>
         </AppBar>
       </Box>
