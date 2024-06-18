@@ -1,11 +1,10 @@
-import CircularProgress from "@mui/material/CircularProgress";
 import Article from "../article";
 import "./style.css";
 import Box from "@mui/material/Box";
-import { ArticleProps } from "../../type/article";
+import { ArticleResult } from "../../type/article";
 
 type Props = {
-  data?: ArticleProps;
+  data?: ArticleResult[];
   isLoading: boolean;
   isError: boolean;
 };
@@ -19,9 +18,8 @@ export const Articles = (props: Props) => {
       gap={4}
       display='flex'
       flexDirection='column'>
-      {isLoading ? <CircularProgress color='inherit' /> : null}
       {!isLoading && data && !isError
-        ? data.results.map((e) => {
+        ? data.map((e) => {
             const newDate = new Date(e.published_at);
             const date = `${newDate.getDate()}/${newDate.getMonth()}/${newDate.getFullYear()}`;
             return (
