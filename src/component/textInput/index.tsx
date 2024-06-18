@@ -12,7 +12,9 @@ const TextInput = (props: Props) => {
       label='Search'
       variant='standard'
       onChange={(e) => onChange(e.target.value)}
-      sx={{ width: width ? width : "100%" }}
+      sx={{
+        width: width ? width : "100%",
+      }}
     />
   );
 };

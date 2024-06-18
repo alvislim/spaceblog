@@ -2,6 +2,7 @@ import Article from "../article";
 import "./style.css";
 import Box from "@mui/material/Box";
 import { ArticleResult } from "../../type/article";
+import React from "react";
 
 type Props = {
   data?: ArticleResult[];
@@ -40,4 +41,4 @@ export const Articles = (props: Props) => {
   );
 };
 
-export default Articles;
+export default React.memo(Articles);
