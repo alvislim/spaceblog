@@ -17,7 +17,7 @@ export interface ArticleResult {
   events: any[];
 }
 
-export interface Article {
+export interface ArticleProps {
   count: number;
   next: string;
   previous?: string;

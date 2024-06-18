@@ -1,11 +1,17 @@
-import useArticle from "../../api/getArticles";
 import CircularProgress from "@mui/material/CircularProgress";
 import Article from "../article";
 import "./style.css";
 import Box from "@mui/material/Box";
+import { ArticleProps } from "../../type/article";
 
-export const Articles = () => {
-  const { data, isError, isLoading } = useArticle();
+type Props = {
+  data?: ArticleProps;
+  isLoading: boolean;
+  isError: boolean;
+};
+
+export const Articles = (props: Props) => {
+  const { data, isError, isLoading } = props;
   return (
     <Box
       height={"100%"}

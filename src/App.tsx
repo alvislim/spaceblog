@@ -1,13 +1,13 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./App.css";
-import Articles from "./component/articles";
+import SpaceBlog from "./page/spaceBlog";
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Articles />
+      <SpaceBlog />
     </QueryClientProvider>
   );
 }
