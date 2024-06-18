@@ -16,12 +16,16 @@ export const Articles = () => {
       {isLoading ? <CircularProgress color='inherit' /> : null}
       {!isLoading && data && !isError
         ? data.results.map((e) => {
+            const newDate = new Date(e.published_at);
+            const date = `${newDate.getDate()}/${newDate.getMonth()}/${newDate.getFullYear()}`;
             return (
               <Article
+                sourceTitle={e.news_site}
+                source={e.url}
                 key={e.id}
                 img={e.image_url}
                 summary={e.summary}
-                publishedDate={e.published_at}
+                publishedDate={date}
                 title={e.title}
                 id={e.id}
               />

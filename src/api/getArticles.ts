@@ -27,9 +27,7 @@ interface Article {
 }
 
 const fetchArticles = (): Promise<Article> => {
-  return fetch(
-    "https://api.spaceflightnewsapi.net/v4/articles?launch=65896761-b6ca-4df3-9699-e077a360c52a"
-  )
+  return fetch("https://api.spaceflightnewsapi.net/v4/articles")
     .then((response) => response.json())
     .catch((e) => console.log(e));
 };
