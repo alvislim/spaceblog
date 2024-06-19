@@ -1,8 +1,13 @@
+interface Comments {
+  name: string;
+  comment: string;
+  date: string;
+}
 export interface CommentsPayload {
   message: string;
   payload: {
-    long: string;
-    short: string;
+    commentId: string;
+    comments: Comments[];
   };
   success: boolean;
   code: number;

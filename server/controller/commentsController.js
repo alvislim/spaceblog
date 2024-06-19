@@ -4,7 +4,7 @@ const httpResponse = require("../utils");
 module.exports = {
   postComment: async (req, res) => {
     const { id, commentInput, name } = req.body;
-    let commentObj = { name: name, comment: commentInput };
+    let commentObj = { name: name, comment: commentInput, date: new Date() };
     try {
       let comments = await Comments.find({ commentId: id.toString() });
       if (comments.length > 0) {
@@ -36,9 +36,13 @@ module.exports = {
   getAllComments: async (req, res) => {
     try {
       let result = await Comments.find({});
-      httpResponse.httpResponse(res, 200, true, "comments retrieved", {
-        ...result,
-      });
+      httpResponse.httpResponse(
+        res,
+        200,
+        true,
+        "comments retrieved",
+        ...result
+      );
     } catch (err) {
       console.log(err);
       httpResponse.httpResponse(res, 500, false, "Server Error");

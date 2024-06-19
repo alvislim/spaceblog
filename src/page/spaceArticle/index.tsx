@@ -13,8 +13,7 @@ const SpaceArticle = () => {
   const article = articleArr?.filter((e) => e.id === Number(articleId))[0];
   const [name, setName] = useState<string>("");
   const [comment, setComment] = useState<string>("");
-  const { data } = useComments();
-  console.log(data?.payload);
+  const { data, refetch } = useComments();
 
   const onNameChange = (e: string) => {
     setName(e);
@@ -28,6 +27,7 @@ const SpaceArticle = () => {
     if (articleId && comment && name) {
       try {
         await postComment(articleId, comment, name);
+        refetch();
       } catch (e) {
         console.log(e);
       }
@@ -77,6 +77,24 @@ const SpaceArticle = () => {
           rows={4}
         />
         <Button onClick={onSubmit}>Submit</Button>
+        {data && data.payload && data.payload.comments
+          ? data.payload.comments?.map((e) => {
+              const dates = new Date(e.date);
+              return (
+                <Box
+                  key={e.date}
+                  color='black'
+                  display='flex'
+                  flexDirection='column'
+                  alignItems='start'
+                  gap={1}>
+                  <Typography variant='h5'>{e.name}</Typography>
+                  <Typography variant='caption'>{`${dates.getDate()}/${dates.getMonth()}/${dates.getFullYear()}`}</Typography>
+                  <Typography variant='caption'>{e.comment}</Typography>
+                </Box>
+              );
+            })
+          : null}
       </Box>
     </Box>
   );
