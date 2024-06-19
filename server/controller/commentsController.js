@@ -6,12 +6,12 @@ module.exports = {
     const { id, commentInput, name } = req.body;
     let commentObj = { name: name, comment: commentInput, date: new Date() };
     try {
-      let comments = await Comments.find({ commentId: id.toString() });
-      if (comments.length > 0) {
-        const arr = comments[0].comments;
+      let comments = await Comments.findOne({ commentId: id.toString() });
+      if (comments) {
+        const arr = comments.comments;
         arr.push(commentObj);
         await Comments.findByIdAndUpdate(
-          comments[0]._id,
+          comments._id,
           {
             $set: {
               comments: arr,
@@ -30,19 +30,14 @@ module.exports = {
         httpResponse.httpResponse(res, 200, true, "comment have been added");
       }
     } catch (err) {
+      console.log(err);
       httpResponse.httpResponse(res, 500, false, "Server Error", commentInput);
     }
   },
   getAllComments: async (req, res) => {
     try {
       let result = await Comments.find({});
-      httpResponse.httpResponse(
-        res,
-        200,
-        true,
-        "comments retrieved",
-        ...result
-      );
+      httpResponse.httpResponse(res, 200, true, "comments retrieved", result);
     } catch (err) {
       console.log(err);
       httpResponse.httpResponse(res, 500, false, "Server Error");
