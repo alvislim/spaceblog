@@ -5,11 +5,17 @@ type Props = {
   width?: number;
   input: string;
   label: string;
+  multiline?: boolean;
+  rows?: number;
+  placeHolder?: string;
 };
 const TextInput = (props: Props) => {
-  const { onChange, width, input, label } = props;
+  const { onChange, width, input, label, rows, multiline, placeHolder } = props;
   return (
     <TextField
+      placeholder={placeHolder}
+      rows={rows ?? 0}
+      multiline={multiline}
       id='standard-basic'
       label={label}
       variant='standard'

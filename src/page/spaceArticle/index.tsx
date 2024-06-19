@@ -10,9 +10,14 @@ const SpaceArticle = () => {
   const { articleArr } = useSpaceStore();
   const article = articleArr?.filter((e) => e.id === Number(articleId))[0];
   const [name, setName] = useState<string>("");
+  const [comment, setComment] = useState<string>("");
 
   const onNameChange = (e: string) => {
     setName(e);
+  };
+
+  const onCommentChange = (e: string) => {
+    setComment(e);
   };
 
   return (
@@ -46,6 +51,14 @@ const SpaceArticle = () => {
           Comments
         </Typography>
         <TextInput onChange={onNameChange} input={name} label='Username' />
+        <TextInput
+          onChange={onCommentChange}
+          input={comment}
+          label='Comment'
+          placeHolder='Write a comment...'
+          multiline={true}
+          rows={4}
+        />
       </Box>
     </Box>
   );
