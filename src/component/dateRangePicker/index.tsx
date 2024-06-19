@@ -17,11 +17,7 @@ const DateRangePicker = (props: Props) => {
       className='date-picker'
       value={value}
       onChange={onChange}
-      format='yyyy-MM-dd HH:mm:ss'
-      defaultCalendarValue={[
-        new Date("2025-02-01 00:00:00"),
-        new Date("2025-03-01 23:59:59"),
-      ]}
+      format='yyyy-MM-dd'
     />
   );
 };

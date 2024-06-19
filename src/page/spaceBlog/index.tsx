@@ -18,13 +18,20 @@ const SpaceBlog = () => {
   const { data, isError, isLoading, refetch, isRefetching } = useArticle(limit);
   const [articleArr, setArticleArr] = useState<ArticleResult[]>();
   const [input, setInput] = useState<string>("");
-  const [dates, setDates] = useState<[Date, Date] | null>([
-    new Date(`${new Date().getFullYear()}-01-18 00:00:00`),
-    new Date("2025-01-18 23:59:59"),
-  ]);
+  const [dates, setDates] = useState<[Date, Date] | null>(null);
 
   const onClean = () => {
     if (data) setArticleArr(data.results);
+  };
+
+  const onChangeDate = (value: [Date, Date] | null) => {
+    if (value) {
+      value[1];
+      setDates([
+        new Date(value[0].setHours(0, 0, 0, 0)),
+        new Date(value[1].setHours(23, 59, 59)),
+      ]);
+    }
   };
 
   useEffect(() => {
@@ -86,7 +93,7 @@ const SpaceBlog = () => {
           <Toolbar>
             <DateRangePicker
               value={dates}
-              onChange={setDates}
+              onChange={onChangeDate}
               onClean={onClean}
             />
             <Box sx={{ flexGrow: 1 }} />
