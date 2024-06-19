@@ -16,7 +16,7 @@ const TextInput = (props: Props) => {
       placeholder={placeHolder}
       rows={rows ?? 0}
       multiline={multiline}
-      id='standard-basic'
+      id={label}
       label={label}
       variant='standard'
       onChange={(e) => onChange(e.target.value)}

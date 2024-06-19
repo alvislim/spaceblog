@@ -1,9 +1,10 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useSpaceStore } from "../../store/spaceBlog";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextInput from "../../component/textInput";
 import { useState } from "react";
+import Button from "@mui/material/Button";
 
 const SpaceArticle = () => {
   const { articleId } = useParams();
@@ -22,6 +23,9 @@ const SpaceArticle = () => {
 
   return (
     <Box display='flex' flexDirection='column' alignItems='start' gap={6}>
+      <Button>
+        <Link to='/'>Back</Link>
+      </Button>
       <img
         height={"450px"}
         width={"100%"}
