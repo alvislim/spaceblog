@@ -3,7 +3,7 @@ const httpResponse = require("../utils");
 
 module.exports = {
   postComment: async (req, res) => {
-    const { commentInput, id, name } = req.body;
+    const { id, commentInput, name } = req.body;
     try {
       let comments = await Schema.findOne({ id });
       if (comments) {
@@ -25,6 +25,14 @@ module.exports = {
       }
     } catch (err) {
       httpResponse.httpResponse(res, 500, false, "Server Error", commentInput);
+    }
+  },
+  getAllComments: async (req, res) => {
+    try {
+      let result = await Schema.find();
+      httpResponse.httpResponse(res, 200, true, "comments retrieved", result);
+    } catch (err) {
+      httpResponse.httpResponse(res, 500, false, "Server Error");
     }
   },
 };
