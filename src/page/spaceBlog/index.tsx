@@ -99,7 +99,12 @@ const SpaceBlog = () => {
               onClean={onClean}
             />
             <Box sx={{ flexGrow: 1 }} />
-            <TextInput onChange={onInputChange} width={150} />
+            <TextInput
+              onChange={onInputChange}
+              width={150}
+              input={input}
+              label='Search'
+            />
           </Toolbar>
         </AppBar>
       </Box>

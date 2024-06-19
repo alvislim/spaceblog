@@ -9,7 +9,7 @@ const baseRoutes = [
     element: <SpaceBlog />,
   },
   {
-    path: "/article:id",
+    path: "/article/:articleId",
     element: <SpaceArticle />,
   },
 ];
