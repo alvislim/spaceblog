@@ -5,13 +5,15 @@ import "./index.css";
 type Props = {
   value: [Date, Date] | null;
   onChange: (value: [Date, Date] | null) => void;
+  onClean: () => void;
 };
 
 const DateRangePicker = (props: Props) => {
-  const { value, onChange } = props;
+  const { value, onChange, onClean } = props;
   return (
     <DatePicker
       preventOverflow
+      onClean={onClean}
       className='date-picker'
       value={value}
       onChange={onChange}

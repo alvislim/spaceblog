@@ -19,9 +19,13 @@ const SpaceBlog = () => {
   const [articleArr, setArticleArr] = useState<ArticleResult[]>();
   const [input, setInput] = useState<string>("");
   const [dates, setDates] = useState<[Date, Date] | null>([
-    new Date(`${new Date().getFullYear()}-02-01 00:00:00`),
-    new Date("2030-03-01 23:59:59"),
+    new Date(`${new Date().getFullYear()}-01-18 00:00:00`),
+    new Date("2025-01-18 23:59:59"),
   ]);
+
+  const onClean = () => {
+    if (data) setArticleArr(data.results);
+  };
 
   useEffect(() => {
     if (inView && articleArr && articleArr.length >= 10) {
@@ -40,20 +44,20 @@ const SpaceBlog = () => {
     if (input !== "" && dates && articleArr) {
       const filteredArr = articleArr.filter(
         (e) =>
-          new Date(e.published_at) > dates[0] &&
-          new Date(e.published_at) < dates[1]
+          new Date(e.published_at) >= dates[0] &&
+          new Date(e.published_at) <= dates[1]
       );
       setArticleArr(filteredArr);
     }
     if (input === "" && data && dates) {
       const filteredArr = data.results.filter(
         (e) =>
-          new Date(e.published_at) > dates[0] &&
-          new Date(e.published_at) < dates[1]
+          new Date(e.published_at) >= dates[0] &&
+          new Date(e.published_at) <= dates[1]
       );
       setArticleArr(filteredArr);
     }
-  }, [dates]);
+  }, [dates, data?.results.length]);
 
   useEffect(() => {
     if (data) {
@@ -80,7 +84,11 @@ const SpaceBlog = () => {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar sx={{ backgroundColor: "#fff" }}>
           <Toolbar>
-            <DateRangePicker value={dates} onChange={setDates} />
+            <DateRangePicker
+              value={dates}
+              onChange={setDates}
+              onClean={onClean}
+            />
             <Box sx={{ flexGrow: 1 }} />
             <TextInput onChange={onInputChange} width={150} />
           </Toolbar>
