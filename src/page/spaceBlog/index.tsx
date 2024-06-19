@@ -3,20 +3,19 @@ import Articles from "../../component/articles";
 import Box from "@mui/material/Box";
 import TextInput from "../../component/textInput";
 import { useEffect, useState } from "react";
-import { ArticleResult } from "../../type/article";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { useInView } from "react-intersection-observer";
 import DateRangePicker from "../../component/dateRangePicker";
+import { useSpaceStore } from "../../store/spaceBlog";
 
 const SpaceBlog = () => {
-  const [limit, setLimit] = useState<number>(10);
   const { ref, inView } = useInView({ threshold: 0.4 });
 
+  const { articleArr, setArticleArr, limit, setLimit } = useSpaceStore();
   const { data, isError, isLoading, refetch, isRefetching } = useArticle(limit);
-  const [articleArr, setArticleArr] = useState<ArticleResult[]>();
   const [input, setInput] = useState<string>("");
   const [dates, setDates] = useState<[Date, Date] | null>(null);
 
@@ -36,7 +35,7 @@ const SpaceBlog = () => {
 
   useEffect(() => {
     if (inView && articleArr && articleArr.length >= 10 && !isRefetching) {
-      setLimit((limit) => limit + 10);
+      setLimit(limit + 10);
     }
   }, [inView]);
 

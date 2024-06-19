@@ -1,12 +1,16 @@
 import { BrowserRouter, useRoutes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import SpaceBlog from "../page/spaceBlog";
+import SpaceArticle from "../page/spaceArticle";
 
 const baseRoutes = [
   {
     path: "/",
     element: <SpaceBlog />,
-    children: [],
+  },
+  {
+    path: "/article:id",
+    element: <SpaceArticle />,
   },
 ];
 
