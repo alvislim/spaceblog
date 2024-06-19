@@ -35,11 +35,14 @@ const SpaceBlog = () => {
   };
 
   useEffect(() => {
-    if (inView && articleArr && articleArr.length >= 10) {
+    if (inView && articleArr && articleArr.length >= 10 && !isRefetching) {
       setLimit((limit) => limit + 10);
-      refetch();
     }
   }, [inView]);
+
+  useEffect(() => {
+    refetch();
+  }, [limit]);
 
   useEffect(() => {
     if (data && !isLoading && !isError) {
