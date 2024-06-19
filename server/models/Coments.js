@@ -1,16 +1,27 @@
 const mongoose = require("mongoose");
 
+const CommentsArraySchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  comment: {
+    type: String,
+    required: true,
+  },
+  date: {
+    type: String,
+    default: Date.now,
+  },
+});
+
 const CommentsSchema = new mongoose.Schema({
   commentId: {
     type: String,
     required: true,
   },
   comments: {
-    type: Array,
-    required: true,
-  },
-  name: {
-    type: String,
+    type: [CommentsArraySchema],
     required: true,
   },
   date: {
