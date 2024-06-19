@@ -39,7 +39,9 @@ module.exports = {
   getAllComments: async (req, res) => {
     try {
       let result = await Comments.find({});
-      httpResponse.httpResponse(res, 200, true, "comments retrieved", result);
+      httpResponse.httpResponse(res, 200, true, "comments retrieved", {
+        ...result,
+      });
     } catch (err) {
       console.log(err);
       httpResponse.httpResponse(res, 500, false, "Server Error");

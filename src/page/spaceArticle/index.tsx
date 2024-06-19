@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import TextInput from "../../component/textInput";
 import { useState } from "react";
 import Button from "@mui/material/Button";
+import { postComment, useComments } from "../../api/comments";
 
 const SpaceArticle = () => {
   const { articleId } = useParams();
@@ -12,6 +13,8 @@ const SpaceArticle = () => {
   const article = articleArr?.filter((e) => e.id === Number(articleId))[0];
   const [name, setName] = useState<string>("");
   const [comment, setComment] = useState<string>("");
+  const { data } = useComments();
+  console.log(data?.payload);
 
   const onNameChange = (e: string) => {
     setName(e);
@@ -19,6 +22,16 @@ const SpaceArticle = () => {
 
   const onCommentChange = (e: string) => {
     setComment(e);
+  };
+
+  const onSubmit = async () => {
+    if (articleId && comment && name) {
+      try {
+        await postComment(articleId, comment, name);
+      } catch (e) {
+        console.log(e);
+      }
+    }
   };
 
   return (
@@ -63,6 +76,7 @@ const SpaceArticle = () => {
           multiline={true}
           rows={4}
         />
+        <Button onClick={onSubmit}>Submit</Button>
       </Box>
     </Box>
   );

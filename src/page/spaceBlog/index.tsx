@@ -66,7 +66,7 @@ const SpaceBlog = () => {
       );
       setArticleArr(filteredArr);
     }
-  }, [dates, data?.results.length]);
+  }, [dates, data]);
 
   useEffect(() => {
     if (data) {
