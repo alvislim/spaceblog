@@ -11,6 +11,7 @@ import { useInView } from "react-intersection-observer";
 import DateRangePicker from "../../component/dateRangePicker";
 import { useSpaceStore } from "../../store/spaceBlog";
 import { useComments, useMatrix } from "../../api/comments";
+import CommentsMatrix from "../../component/commentsMatrix";
 
 const SpaceBlog = () => {
   const { ref, inView } = useInView({ threshold: 0.4 });
@@ -22,18 +23,27 @@ const SpaceBlog = () => {
   const { data: commentsData } = useComments();
   const { data: commentsMatrix } = useMatrix();
 
-  if (commentsMatrix) {
-    if (
-      commentsMatrix.payload &&
-      commentsMatrix.payload.userComment.length >= 0
-    ) {
-      console.log(
-        commentsMatrix?.payload.userComment.sort((a, b) =>
-          b.comments > a.comments ? 1 : -1
-        )
-      );
+  const UserCommentMatrix = () => {
+    if (commentsMatrix && !isLoading) {
+      if (
+        commentsMatrix.payload &&
+        commentsMatrix.payload.userComment.length >= 0
+      ) {
+        const sortedComments = commentsMatrix?.payload.userComment.sort(
+          (a, b) => (b.comments > a.comments ? 1 : -1)
+        );
+        return (
+          <CommentsMatrix
+            title='Top 3 Commenters'
+            arr={sortedComments}
+            limit={3}
+          />
+        );
+      }
+    } else {
+      return null;
     }
-  }
+  };
 
   const onClean = () => {
     if (data) {
@@ -127,7 +137,7 @@ const SpaceBlog = () => {
           </Toolbar>
         </AppBar>
       </Box>
-
+      {UserCommentMatrix()}
       <Box
         display='flex'
         flexDirection='column'

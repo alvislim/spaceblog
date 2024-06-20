@@ -9,7 +9,7 @@ interface GenericAPI {
   code: number;
 }
 
-interface UserComment {
+export interface UserComment {
   _id: string;
   userName: string;
   comments: number;
