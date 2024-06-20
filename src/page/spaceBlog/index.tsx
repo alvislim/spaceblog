@@ -22,7 +22,19 @@ const SpaceBlog = () => {
   const { data: commentsData } = useComments();
   const { data: commentsMatrix } = useMatrix();
 
-  console.log(commentsMatrix);
+  if (commentsMatrix) {
+    if (
+      commentsMatrix.payload &&
+      commentsMatrix.payload.userComment.length >= 0
+    ) {
+      console.log(
+        commentsMatrix?.payload.userComment.sort((a, b) =>
+          b.comments > a.comments ? 1 : -1
+        )
+      );
+    }
+  }
+
   const onClean = () => {
     if (data) {
       setArticleArr(data.results);

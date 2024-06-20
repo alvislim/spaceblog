@@ -37,7 +37,7 @@ const SpaceArticle = () => {
   const isDisabled = name === "" || comment === "" || isLoading;
 
   const DisplayComments = () => {
-    if (data) {
+    if (data && data.payload && data.payload.length >= 0) {
       const filteredData = data.payload.filter(
         (e) => e.commentId === articleId
       )[0];

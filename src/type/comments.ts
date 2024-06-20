@@ -3,16 +3,16 @@ interface Comments {
   comment: string;
   date: string;
 }
-
-interface Matrix {
-  dateComment: string[];
-  userComment: string[];
-}
-
 interface GenericAPI {
   message: string;
   success: boolean;
   code: number;
+}
+
+interface UserComment {
+  _id: string;
+  userName: string;
+  comments: number;
 }
 
 export interface CommentsPayload extends GenericAPI {
@@ -20,5 +20,8 @@ export interface CommentsPayload extends GenericAPI {
 }
 
 export interface MatrixPayload extends GenericAPI {
-  payload: Matrix[];
+  payload: {
+    dateComment: string[];
+    userComment: UserComment[];
+  };
 }
