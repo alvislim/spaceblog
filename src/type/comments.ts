@@ -5,10 +5,7 @@ interface Comments {
 }
 export interface CommentsPayload {
   message: string;
-  payload: {
-    commentId: string;
-    comments: Comments[];
-  };
+  payload: [{ commentId: string; comments: Comments[] }];
   success: boolean;
   code: number;
 }

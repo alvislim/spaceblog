@@ -25,7 +25,7 @@ const getComments = (): Promise<CommentsPayload> => {
 
 export const useComments = () => {
   return useQuery<CommentsPayload, Error>({
-    queryKey: ["articles"],
+    queryKey: ["getComments"],
     queryFn: () => getComments(),
   });
 };

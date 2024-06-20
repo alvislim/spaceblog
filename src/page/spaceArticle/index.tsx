@@ -34,6 +34,39 @@ const SpaceArticle = () => {
     }
   };
 
+  const DisplayComments = () => {
+    if (data) {
+      const filteredData = data.payload.filter(
+        (e) => e.commentId === articleId
+      )[0];
+      console.log(filteredData);
+      if (filteredData) {
+        return (
+          <>
+            {filteredData.comments.map((e) => {
+              const dates = new Date(e.date);
+              return (
+                <Box
+                  key={e.date}
+                  color='black'
+                  display='flex'
+                  flexDirection='column'
+                  alignItems='start'
+                  gap={1}>
+                  <Typography variant='h5'>{e.name}</Typography>
+                  <Typography variant='caption'>{`${dates.getDate()}/${dates.getMonth()}/${dates.getFullYear()}`}</Typography>
+                  <Typography variant='caption'>{e.comment}</Typography>
+                </Box>
+              );
+            })}
+          </>
+        );
+      }
+    } else {
+      return null;
+    }
+  };
+
   return (
     <Box display='flex' flexDirection='column' alignItems='start' gap={6}>
       <Button>
@@ -77,24 +110,7 @@ const SpaceArticle = () => {
           rows={4}
         />
         <Button onClick={onSubmit}>Submit</Button>
-        {data && data.payload && data.payload.comments
-          ? data.payload.comments?.map((e) => {
-              const dates = new Date(e.date);
-              return (
-                <Box
-                  key={e.date}
-                  color='black'
-                  display='flex'
-                  flexDirection='column'
-                  alignItems='start'
-                  gap={1}>
-                  <Typography variant='h5'>{e.name}</Typography>
-                  <Typography variant='caption'>{`${dates.getDate()}/${dates.getMonth()}/${dates.getFullYear()}`}</Typography>
-                  <Typography variant='caption'>{e.comment}</Typography>
-                </Box>
-              );
-            })
-          : null}
+        {DisplayComments()}
       </Box>
     </Box>
   );
