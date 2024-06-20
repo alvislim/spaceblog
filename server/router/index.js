@@ -5,6 +5,7 @@ const comments = require("../controller/commentsController");
 
 router.get("/", healthCheck.healthCheck);
 router.get("/getComments", comments.getAllComments);
+router.get("/getMatrix", comments.getMatrix);
 router.post("/postComment", comments.postComment);
 
 module.exports = router;

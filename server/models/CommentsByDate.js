@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-const UserComment = new mongoose.Schema({
-  userName: {
+const CommentsByDate = new mongoose.Schema({
+  date: {
     type: String,
     required: true,
   },
@@ -9,10 +9,10 @@ const UserComment = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  date: {
+  updatedDate: {
     type: Date,
     default: Date.now,
   },
 });
 
-module.exports = mongoose.model("UserComment", UserComment);
+module.exports = mongoose.model("CommentsByDate", CommentsByDate);
