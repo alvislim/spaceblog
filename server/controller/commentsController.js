@@ -16,6 +16,7 @@ module.exports = {
         userName: name.toLowerCase(),
       });
       let commentsDate = await CommentsDate.findOne({ date: dateString });
+
       if (comments && userComment && commentsDate) {
         const arr = comments.comments;
         arr.push(commentObj);

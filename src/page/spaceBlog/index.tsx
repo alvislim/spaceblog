@@ -10,7 +10,7 @@ import Toolbar from "@mui/material/Toolbar";
 import { useInView } from "react-intersection-observer";
 import DateRangePicker from "../../component/dateRangePicker";
 import { useSpaceStore } from "../../store/spaceBlog";
-import { useComments } from "../../api/comments";
+import { useComments, useMatrix } from "../../api/comments";
 
 const SpaceBlog = () => {
   const { ref, inView } = useInView({ threshold: 0.4 });
@@ -20,9 +20,14 @@ const SpaceBlog = () => {
   const [input, setInput] = useState<string>("");
   const [dates, setDates] = useState<[Date, Date] | null>(null);
   const { data: commentsData } = useComments();
+  const { data: commentsMatrix } = useMatrix();
 
+  console.log(commentsMatrix);
   const onClean = () => {
-    if (data) setArticleArr(data.results);
+    if (data) {
+      setArticleArr(data.results);
+      setDates(null);
+    }
   };
 
   const onChangeDate = (value: [Date, Date] | null) => {

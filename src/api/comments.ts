@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { localBackEnd } from "../constant";
-import { CommentsPayload } from "../type/comments";
+import { CommentsPayload, MatrixPayload } from "../type/comments";
 
 export const postComment = (id: string, comment: string, name: string) => {
   return fetch(`${localBackEnd}/postComment`, {
@@ -27,5 +27,18 @@ export const useComments = () => {
   return useQuery<CommentsPayload, Error>({
     queryKey: ["getComments"],
     queryFn: () => getComments(),
+  });
+};
+
+const getMatrix = (): Promise<MatrixPayload> => {
+  return fetch(`${localBackEnd}/getMatrix`)
+    .then((response) => response.json())
+    .catch((e) => console.log(e));
+};
+
+export const useMatrix = () => {
+  return useQuery<MatrixPayload, Error>({
+    queryKey: ["commentsMatrix"],
+    queryFn: () => getMatrix(),
   });
 };
