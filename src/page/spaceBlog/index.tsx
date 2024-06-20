@@ -12,6 +12,7 @@ import DateRangePicker from "../../component/dateRangePicker";
 import { useSpaceStore } from "../../store/spaceBlog";
 import { useComments, useMatrix } from "../../api/comments";
 import CommentsMatrix from "../../component/commentsMatrix";
+import AvgCommentMatrix from "../../component/AvgCommetMatrix";
 
 const SpaceBlog = () => {
   const { ref, inView } = useInView({ threshold: 0.4 });
@@ -27,17 +28,32 @@ const SpaceBlog = () => {
     if (commentsMatrix && !isLoading) {
       if (
         commentsMatrix.payload &&
-        commentsMatrix.payload.userComment.length >= 0
+        commentsMatrix.payload.userComment.length >= 0 &&
+        commentsMatrix.payload.dateComment.length >= 0
       ) {
+        const dateCommentLength = commentsMatrix.payload.dateComment.length;
+        const totalComments = commentsMatrix.payload.dateComment[0].comments;
+        const avgPerDay = totalComments / dateCommentLength;
         const sortedComments = commentsMatrix?.payload.userComment.sort(
           (a, b) => (b.comments > a.comments ? 1 : -1)
         );
         return (
-          <CommentsMatrix
-            title='Top 3 Commenters'
-            arr={sortedComments}
-            limit={3}
-          />
+          <Box
+            sx={{ width: "100%" }}
+            display='flex'
+            justifyContent='space-between'
+            gap={4}>
+            <CommentsMatrix
+              title='Top 3 Commenters'
+              arr={sortedComments}
+              limit={3}
+            />
+            <AvgCommentMatrix
+              title='Average Comments/Day'
+              value={avgPerDay}
+              subtitle='comments'
+            />
+          </Box>
         );
       }
     } else {

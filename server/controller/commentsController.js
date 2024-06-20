@@ -47,7 +47,11 @@ module.exports = {
           {
             date: dateString,
           },
-          { comments: 1 }
+          {
+            $inc: {
+              comments: 1,
+            },
+          }
         );
       }
       if (!userComment) {

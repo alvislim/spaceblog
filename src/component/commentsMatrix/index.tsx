@@ -18,7 +18,7 @@ const CommentsMatrix = (props: Props) => {
       flexDirection='column'
       p={2}
       sx={{
-        width: "30%",
+        width: "50%",
         boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
       }}
       gap={2}>

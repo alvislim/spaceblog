@@ -15,13 +15,19 @@ export interface UserComment {
   comments: number;
 }
 
+export interface DateComment {
+  _id: string;
+  date: string;
+  comments: number;
+}
+
 export interface CommentsPayload extends GenericAPI {
   payload: [{ commentId: string; comments: Comments[] }];
 }
 
 export interface MatrixPayload extends GenericAPI {
   payload: {
-    dateComment: string[];
+    dateComment: DateComment[];
     userComment: UserComment[];
   };
 }
