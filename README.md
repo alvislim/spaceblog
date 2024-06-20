@@ -138,7 +138,6 @@ In any event it is not working, please execute npm run dev in root, and npx node
 
 - /postComment \
 Payload - {"id":"24149","commentInput":"asd","name":"asd"} \
-
 {
     "success": true,
     "message": "comment have been added",
