@@ -17,23 +17,9 @@ module.exports = {
       });
       let commentsDate = await CommentsDate.findOne({ date: dateString });
 
-      if (comments && userComment && commentsDate) {
+      if (comments) {
         const arr = comments.comments;
         arr.push(commentObj);
-        await UserComment.findOneAndUpdate(
-          {
-            userName: name,
-          },
-          {
-            comments: userComment.comments + 1,
-          }
-        );
-        await CommentsDate.findOneAndUpdate(
-          {
-            date: dateString,
-          },
-          { comments: commentsDate.comments + 1 }
-        );
         await Comments.findByIdAndUpdate(
           comments._id,
           {
@@ -43,26 +29,51 @@ module.exports = {
           },
           { new: true }
         );
-        httpResponse.httpResponse(res, 200, true, "comment have been added");
-      } else {
+      }
+      if (userComment) {
+        await UserComment.findOneAndUpdate(
+          {
+            userName: name,
+          },
+          {
+            comments: userComment.comments + 1,
+          }
+        );
+      }
+      if (commentsDate) {
+        await CommentsDate.findOneAndUpdate(
+          {
+            date: dateString,
+          },
+          { comments: commentsDate.comments + 1 }
+        );
+      }
+      if (!userComment) {
         userComment = new UserComment({
           userName: name,
           comments: 1,
         });
+        await userComment.save();
+      }
+
+      if (!commentsDate) {
         commentsDate = new CommentsDate({
           date: dateString,
           comments: 1,
         });
+        await commentsDate.save();
+      }
+
+      if (!comments) {
         comments = new Comments({
           commentId: id,
           comments: [commentObj],
           name: name.toString(),
         });
         await comments.save();
-        await userComment.save();
-        await commentsDate.save();
-        httpResponse.httpResponse(res, 200, true, "comment have been added");
       }
+
+      httpResponse.httpResponse(res, 200, true, "comment have been added");
     } catch (err) {
       console.log(err);
       httpResponse.httpResponse(res, 500, false, "Server Error", commentInput);
