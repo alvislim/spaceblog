@@ -34,6 +34,7 @@ const SpaceArticle = () => {
       }
     }
   };
+  const isDisabled = name === "" || comment === "";
 
   const DisplayComments = () => {
     if (data) {
@@ -110,7 +111,9 @@ const SpaceArticle = () => {
           multiline={true}
           rows={4}
         />
-        <Button onClick={onSubmit}>Submit</Button>
+        <Button onClick={onSubmit} disabled={isDisabled}>
+          Submit
+        </Button>
         {DisplayComments()}
       </Box>
     </Box>
