@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import { ArticleResult } from "../../type/article";
 import React from "react";
 import { CommentsPayload } from "../../type/comments";
+import { dateFormat } from "../../utils";
 
 type Props = {
   data?: ArticleResult[];
@@ -14,7 +15,6 @@ type Props = {
 
 export const Articles = (props: Props) => {
   const { data, isError, isLoading, commentsData } = props;
-  console.log(commentsData);
   return (
     <Box
       height={"100%"}
@@ -24,17 +24,15 @@ export const Articles = (props: Props) => {
       flexDirection='column'>
       {!isLoading && data && !isError
         ? data.map((e) => {
-            console.log();
-            const newDate = new Date(e.published_at);
-            const date = `${newDate.getDate()}/${newDate.getMonth()}/${newDate.getFullYear()}`;
             return (
               <Article
                 sourceTitle={e.news_site}
+                commentsData={commentsData}
                 source={e.url}
                 key={e.id}
                 img={e.image_url}
                 summary={e.summary}
-                publishedDate={date}
+                publishedDate={dateFormat(e.published_at)}
                 title={e.title}
                 id={e.id}
               />

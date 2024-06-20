@@ -23,6 +23,7 @@ const CommentsSchema = new mongoose.Schema({
   comments: {
     type: [CommentsArraySchema],
     required: true,
+    default: [],
   },
   date: {
     type: String,

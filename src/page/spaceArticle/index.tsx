@@ -6,6 +6,7 @@ import TextInput from "../../component/textInput";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import { postComment, useComments } from "../../api/comments";
+import { dateFormat } from "../../utils";
 
 const SpaceArticle = () => {
   const { articleId } = useParams();
@@ -39,12 +40,10 @@ const SpaceArticle = () => {
       const filteredData = data.payload.filter(
         (e) => e.commentId === articleId
       )[0];
-      console.log(filteredData);
       if (filteredData) {
         return (
           <>
             {filteredData.comments.map((e) => {
-              const dates = new Date(e.date);
               return (
                 <Box
                   key={e.date}
@@ -54,7 +53,9 @@ const SpaceArticle = () => {
                   alignItems='start'
                   gap={1}>
                   <Typography variant='h5'>{e.name}</Typography>
-                  <Typography variant='caption'>{`${dates.getDate()}/${dates.getMonth()}/${dates.getFullYear()}`}</Typography>
+                  <Typography variant='caption'>
+                    {dateFormat(e.date)}
+                  </Typography>
                   <Typography variant='caption'>{e.comment}</Typography>
                 </Box>
               );

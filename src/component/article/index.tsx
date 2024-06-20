@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
+import { CommentsPayload } from "../../type/comments";
 
 type Props = {
   img: string;
@@ -13,12 +14,27 @@ type Props = {
   id: number;
   source?: string;
   sourceTitle: string;
+  commentsData?: CommentsPayload;
 };
 
 const Article = (props: Props) => {
-  const { img, title, summary, publishedDate, id, sourceTitle } = props;
+  const { img, title, summary, publishedDate, id, sourceTitle, commentsData } =
+    props;
+
+  const commentLength = () => {
+    if (commentsData) {
+      const length = commentsData.payload.filter(
+        (e) => e.commentId === id.toString()
+      );
+      if (length && length[0]) {
+        return length[0].comments.length;
+      }
+    }
+    return 0;
+  };
+
   return (
-    <Link to={`article/${id}`}>
+    <Link to={`article/${id}`} style={{ textDecoration: "none" }}>
       <Card sx={{ maxWidth: 900 }} key={id}>
         <Box
           display='flex'
@@ -48,11 +64,7 @@ const Article = (props: Props) => {
                   sx={{ textAlign: "left" }}>
                   {title}
                 </Typography>
-                <Typography variant='caption'>
-                  {/* <a href={source} target='_blank' rel='noreferrer'> */}
-                  {sourceTitle}
-                  {/* </a> */}
-                </Typography>
+                <Typography variant='caption'>{sourceTitle}</Typography>
               </Box>
               <Typography
                 variant='body2'
@@ -61,6 +73,7 @@ const Article = (props: Props) => {
                 {summary}
               </Typography>
               <Typography variant='caption'>{publishedDate}</Typography>
+              <Typography variant='caption'>{`Comments ${commentLength()}`}</Typography>
             </Box>
           </CardContent>
         </Box>
