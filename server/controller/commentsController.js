@@ -13,7 +13,7 @@ module.exports = {
     try {
       let comments = await Comments.findOne({ commentId: id.toString() });
       let userComment = await UserComment.findOne({
-        userName: name.toLowerCase(),
+        lowerCase: name.toLowerCase(),
       });
       let commentsDate = await CommentsDate.findOne({ date: dateString });
 
@@ -31,14 +31,9 @@ module.exports = {
         );
       }
       if (userComment) {
-        await UserComment.findOneAndUpdate(
-          {
-            userName: name,
-          },
-          {
-            comments: userComment.comments + 1,
-          }
-        );
+        await UserComment.findOneAndUpdate({
+          comments: userComment.comments + 1,
+        });
       }
       if (commentsDate) {
         await CommentsDate.findOneAndUpdate(
@@ -51,6 +46,7 @@ module.exports = {
       if (!userComment) {
         userComment = new UserComment({
           userName: name,
+          lowerCase: name.toLowerCase(),
           comments: 1,
         });
         await userComment.save();
