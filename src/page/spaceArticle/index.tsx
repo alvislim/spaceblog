@@ -14,7 +14,7 @@ const SpaceArticle = () => {
   const article = articleArr?.filter((e) => e.id === Number(articleId))[0];
   const [name, setName] = useState<string>("");
   const [comment, setComment] = useState<string>("");
-  const { data, refetch } = useComments();
+  const { data, refetch, isLoading } = useComments();
 
   const onNameChange = (e: string) => {
     setName(e);
@@ -34,7 +34,7 @@ const SpaceArticle = () => {
       }
     }
   };
-  const isDisabled = name === "" || comment === "";
+  const isDisabled = name === "" || comment === "" || isLoading;
 
   const DisplayComments = () => {
     if (data) {
@@ -47,7 +47,7 @@ const SpaceArticle = () => {
             {filteredData.comments.map((e) => {
               return (
                 <Box
-                  key={e.date}
+                  key={`${e.date}-${Math.random() * 100}`}
                   color='black'
                   display='flex'
                   flexDirection='column'
