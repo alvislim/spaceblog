@@ -28,11 +28,12 @@ const SpaceBlog = () => {
     if (commentsMatrix && !isLoading) {
       if (
         commentsMatrix.payload &&
-        commentsMatrix.payload.userComment.length >= 0 &&
-        commentsMatrix.payload.dateComment.length >= 0
+        commentsMatrix.payload.userComment.length > 0 &&
+        commentsMatrix.payload.dateComment.length > 0
       ) {
+        console.log(commentsMatrix.payload.dateComment);
         const dateCommentLength = commentsMatrix.payload.dateComment.length;
-        const totalComments = commentsMatrix.payload.dateComment[0].comments;
+        const totalComments = commentsMatrix?.payload.dateComment[0].comments;
         const avgPerDay = totalComments / dateCommentLength;
         const sortedComments = commentsMatrix?.payload.userComment.sort(
           (a, b) => (b.comments > a.comments ? 1 : -1)
