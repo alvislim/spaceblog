@@ -31,16 +31,23 @@ module.exports = {
         );
       }
       if (userComment) {
-        await UserComment.findOneAndUpdate({
-          comments: userComment.comments + 1,
-        });
+        await UserComment.findOneAndUpdate(
+          {
+            lowerCase: name.toLowerCase(),
+          },
+          {
+            $inc: {
+              comments: 1,
+            },
+          }
+        );
       }
       if (commentsDate) {
         await CommentsDate.findOneAndUpdate(
           {
             date: dateString,
           },
-          { comments: commentsDate.comments + 1 }
+          { comments: 1 }
         );
       }
       if (!userComment) {
