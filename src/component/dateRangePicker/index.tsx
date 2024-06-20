@@ -12,6 +12,7 @@ const DateRangePicker = (props: Props) => {
   const { value, onChange, onClean } = props;
   return (
     <DatePicker
+      placeholder='Select Date Range'
       preventOverflow
       onClean={onClean}
       className='date-picker'
